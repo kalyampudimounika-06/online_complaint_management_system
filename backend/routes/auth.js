@@ -142,32 +142,35 @@ router.post("/forgot-password", async (req, res) => {
             `${process.env.FRONTEND_URL}/reset-password.html?token=${resetToken}`;
 
         // Email Transport
-        const transporter = nodemailer.createTransport({
+        const testAccount =
+            await nodemailer.createTestAccount();
 
-            host: "smtp.gmail.com",
+        const transporter =
+            nodemailer.createTransport({
 
-            port: 465,
+                host: "smtp.ethereal.email",
 
-            secure: true,
+                port: 587,
 
-            auth: {
+                auth: {
 
-                user: process.env.EMAIL_USER,
+                    user: testAccount.user,
 
-                pass: process.env.EMAIL_PASS
-            }
-        });
+                    pass: testAccount.pass
+                }
+            });
 
         // Send Mail
-        await transporter.sendMail({
+        const info = await transporter.sendMail({
 
-            from: process.env.EMAIL_USER,
+            from: testAccount.user,
 
             to: user.email,
 
             subject: "Password Reset",
 
             html: `
+
                 <h2>Password Reset</h2>
 
                 <p>
@@ -176,10 +179,14 @@ router.post("/forgot-password", async (req, res) => {
 
                 <a href="${resetURL}">
                     Reset Password
-                     </a>
+                </a>
             `
         });
 
+        console.log(
+            "Preview URL:",
+            nodemailer.getTestMessageUrl(info)
+        );
         res.json({
             message: "Reset link sent to email"
         });
