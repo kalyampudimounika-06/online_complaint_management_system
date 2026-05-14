@@ -5,8 +5,11 @@ body {
 }
 
 /* Layout */
-.main {
-    display: flex;
+.main{
+
+    display:flex;
+
+    min-height:100vh;
 }
 
 .top-header{
@@ -69,12 +72,15 @@ body{
     padding-top:120px;
 }
 /* Sidebar */
-.sidebar {
-    width: 230px;
-    height: 100vh;
-    background: linear-gradient(180deg, #1e293b, #0f172a);
-    color: white;
-    padding: 20px;
+.sidebar{
+
+    width:260px;
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:20px;
 }
 
 .sidebar h2 {
@@ -99,15 +105,13 @@ body{
 }
 
 /* Content */
-.content {
-    margin-left: 230px;
-    width: calc(100% - 230px);
-    padding: 20px;
-    min-height: 100vh;
+.content{
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex:1;
+
+    padding:30px;
+
+    margin-left:0;
 }
 
 /* Topbar */
@@ -290,6 +294,8 @@ select:hover {
     gap:25px;
 
     margin-top:30px;
+
+    align-items:start;
 }
 
 /* CARDS */
