@@ -9,6 +9,56 @@ body {
     display: flex;
 }
 
+.top-header{
+
+    width:100%;
+
+    background:#1e293b;
+
+    color:white;
+
+    padding:18px;
+
+    text-align:center;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    z-index:1000;
+
+    box-shadow:0 2px 10px rgba(0,0,0,0.2);
+}
+
+.top-header h1{
+
+    margin:0;
+
+    font-size:28px;
+}
+
+body{
+
+    padding-top:90px;
+}
+
+.subtitle{
+
+    margin-top:5px;
+
+    font-size:14px;
+
+    font-weight:400;
+
+    opacity:0.8;
+}
+
 /* Sidebar */
 .sidebar {
     position: fixed;
