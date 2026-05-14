@@ -25,7 +25,7 @@ body {
     padding:20px 10px;
 
     text-align:center;
-    
+
     top:0;
 
     left:0;
@@ -70,7 +70,6 @@ body{
 }
 /* Sidebar */
 .sidebar {
-    position: fixed;
     width: 230px;
     height: 100vh;
     background: linear-gradient(180deg, #1e293b, #0f172a);
