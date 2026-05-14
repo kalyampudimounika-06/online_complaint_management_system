@@ -25,9 +25,7 @@ body {
     padding:20px 10px;
 
     text-align:center;
-
-    position:fixed;
-
+    
     top:0;
 
     left:0;
@@ -293,13 +291,19 @@ select:hover {
 .status-resolved { color: #22c55e; font-weight: bold; }
 .footer{
 
-    text-align:center;
-
-    padding:15px;
+    width:100%;
 
     background:#1e293b;
 
     color:white;
 
+    text-align:center;
+
+    padding:18px;
+
     margin-top:40px;
+
+    font-size:16px;
+
+    font-weight:500;
 }
