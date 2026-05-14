@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
     name: String,
 
@@ -14,8 +14,14 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: String,
         default: "user"
-    }
+    },
 
-}, { timestamps: true });
+    resetToken: String,
 
-module.exports = mongoose.model("User", UserSchema);
+    resetTokenExpire: Date
+
+}, {
+    timestamps: true
+});
+
+module.exports = mongoose.model("User", userSchema);
