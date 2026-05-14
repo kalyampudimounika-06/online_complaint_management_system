@@ -226,7 +226,7 @@ async function submitComplaint() {
     }
 
     try {
-        let res = await fetch("http://localhost:5000/api/complaints", {
+        let res = await fetch("https://online-complaint-management-system-tul3.onrender.com/api/complaints", {
             method: "POST",
             body: formData   // ❗ DO NOT add headers here
         });

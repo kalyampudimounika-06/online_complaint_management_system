@@ -91,7 +91,7 @@
 <script>
 async function loadDashboard() {
 
-    const res = await fetch("http://localhost:5000/api/complaints");
+    const res = await fetch("https://online-complaint-management-system-tul3.onrender.com/api/complaints");
     const data = await res.json();
 
     let total = data.length;

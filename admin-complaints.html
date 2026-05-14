@@ -148,7 +148,7 @@ async function loadComplaints() {
     try {
 
         const res = await fetch(
-            "http://localhost:5000/api/complaints"
+            "https://online-complaint-management-system-tul3.onrender.com/api/complaints"
         );
 
         const complaints = await res.json();
@@ -201,7 +201,7 @@ async function loadComplaints() {
 
                 fileHTML = `
                     <img
-                        src="http://localhost:5000/uploads/${c.file}"
+                        src="https://online-complaint-management-system-tul3.onrender.com/uploads/${c.file}"
                         width="60"
                         style="border-radius:6px;"
                     >
@@ -311,7 +311,7 @@ async function loadComplaints() {
 async function updateStatus(id, status) {
 
     await fetch(
-        `http://localhost:5000/api/complaints/${id}`,
+        `https://online-complaint-management-system-tul3.onrender.com/${id}`,
         {
             method: "PUT",
 
@@ -355,7 +355,7 @@ function viewComplaint(index) {
 
         imageHTML = `
             <img
-                src="http://localhost:5000/uploads/${c.file}"
+                src="https://online-complaint-management-system-tul3.onrender.com/uploads/${c.file}"
                 width="100%"
                 style="
                     margin-top:15px;
