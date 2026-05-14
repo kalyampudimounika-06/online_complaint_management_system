@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Complaint = require("../models/Complaint");
+const Complaint = require("../models/ComplaintModel");
 const multer = require("multer");
 
 // Multer Storage
