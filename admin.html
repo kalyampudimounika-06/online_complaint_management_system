@@ -10,24 +10,75 @@
     <!-- Chart JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <style>
+
+        .dashboard-grid{
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap:25px;
+
+            margin-top:30px;
+        }
+
+        .analytics-card{
+
+            background:white;
+
+            padding:25px;
+
+            border-radius:16px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.08);
+
+            margin-top:35px;
+        }
+
+        .analytics-card h2{
+
+            text-align:center;
+
+            margin-bottom:25px;
+        }
+
+        .chart-container{
+
+            max-width:500px;
+
+            margin:0 auto;
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-    <div class="top-header">
+<!-- HEADER -->
+<div class="top-header">
 
-        <h1>
-            Campus Complaint Management System
-        </h1>
+    <h1>
+        Campus Complaint Management System
+    </h1>
 
-    </div>
+    <p class="subtitle">
+        Smart Digital Complaint Portal
+    </p>
+
+</div>
 
 <div class="main">
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR -->
     <div class="sidebar">
 
-        <h2>Admin Panel</h2>
+        <h2>
+            Admin Panel
+        </h2>
 
         <ul>
 
@@ -50,10 +101,10 @@
 
     </div>
 
-    <!-- Content -->
+    <!-- CONTENT -->
     <div class="content">
 
-        <!-- Topbar -->
+        <!-- TOPBAR -->
         <div class="topbar">
 
             Welcome,
@@ -77,82 +128,57 @@
 
         </div>
 
-        <!-- Container -->
-        <div class="container-box">
+        <!-- DASHBOARD CARDS -->
+        <div class="dashboard-grid">
 
-            <!-- Dashboard Cards -->
-            <div class="cards">
+            <!-- TOTAL -->
+            <div class="card blue">
 
-                <!-- Total -->
-                <div class="card blue">
+                <h2 id="totalCount">0</h2>
 
-                    <h2 id="totalCount">0</h2>
-
-                    <p>Total Complaints</p>
-
-                </div>
-
-                <!-- Pending -->
-                <div class="card orange">
-
-                    <h2 id="pendingCount">0</h2>
-
-                    <p>Pending</p>
-
-                </div>
-
-                <!-- In Progress -->
-                <div class="card blue">
-
-                    <h2 id="progressCount">0</h2>
-
-                    <p>In Progress</p>
-
-                </div>
-
-                <!-- Resolved -->
-                <div class="card green">
-
-                    <h2 id="resolvedCount">0</h2>
-
-                    <p>Resolved</p>
-
-                </div>
+                <p>Total Complaints</p>
 
             </div>
 
-            <!-- Analytics Section -->
-            <div
-                style="
-                    display:flex;
-                    justify-content:center;
-                    margin-top:50px;
-                    width:100%;
-                "
-            >
+            <!-- PENDING -->
+            <div class="card orange">
 
-                <div
-                    style="
-                        width:400px;
-                        background:white;
-                        padding:25px;
-                        border-radius:15px;
-                        box-shadow:0 5px 15px rgba(0,0,0,0.08);
-                    "
-                >
+                <h2 id="pendingCount">0</h2>
 
-                    <h2
-                        style="
-                            text-align:center;
-                            margin-bottom:20px;
-                        "
-                    >
-                        Complaint Analytics
-                    </h2>
+                <p>Pending</p>
 
-                    <canvas id="complaintChart"></canvas>
+            </div>
 
-                </div>
+            <!-- IN PROGRESS -->
+            <div class="card blue">
+
+                <h2 id="progressCount">0</h2>
+
+                <p>In Progress</p>
+
+            </div>
+
+            <!-- RESOLVED -->
+            <div class="card green">
+
+                <h2 id="resolvedCount">0</h2>
+
+                <p>Resolved</p>
+
+            </div>
+
+        </div>
+
+        <!-- ANALYTICS -->
+        <div class="analytics-card">
+
+            <h2>
+                Complaint Analytics
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="complaintChart"></canvas>
 
             </div>
 
@@ -160,7 +186,16 @@
 
     </div>
 
-<!-- Dashboard Script -->
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    © 2026 Campus Complaint Management System
+
+</footer>
+
+<!-- DASHBOARD SCRIPT -->
 <script>
 
 let complaintChart;
@@ -169,52 +204,59 @@ async function loadDashboard() {
 
     try {
 
-        // Fetch complaints
         const res = await fetch(
             "https://online-complaint-management-system-tul3.onrender.com/api/complaints"
         );
 
-        const complaints = await res.json();
+        const complaints =
+            await res.json();
 
-        // Counts
-        let total = complaints.length;
+        let total =
+            complaints.length;
 
-        let pending = complaints.filter(
-            c => c.status === "Pending"
-        ).length;
+        let pending =
+            complaints.filter(
+                c => c.status === "Pending"
+            ).length;
 
-        let progress = complaints.filter(
-            c => c.status === "In Progress"
-        ).length;
+        let progress =
+            complaints.filter(
+                c => c.status === "In Progress"
+            ).length;
 
-        let resolved = complaints.filter(
-            c => c.status === "Resolved"
-        ).length;
+        let resolved =
+            complaints.filter(
+                c => c.status === "Resolved"
+            ).length;
 
-        // Update Cards
-        document.getElementById("totalCount")
-            .innerText = total;
+        // Update cards
+        document.getElementById(
+            "totalCount"
+        ).innerText = total;
 
-        document.getElementById("pendingCount")
-            .innerText = pending;
+        document.getElementById(
+            "pendingCount"
+        ).innerText = pending;
 
-        document.getElementById("progressCount")
-            .innerText = progress;
+        document.getElementById(
+            "progressCount"
+        ).innerText = progress;
 
-        document.getElementById("resolvedCount")
-            .innerText = resolved;
+        document.getElementById(
+            "resolvedCount"
+        ).innerText = resolved;
 
         // Chart
         const ctx =
-            document.getElementById("complaintChart");
+            document.getElementById(
+                "complaintChart"
+            );
 
-        // Destroy old chart
         if (complaintChart) {
 
             complaintChart.destroy();
         }
 
-        // Create new chart
         complaintChart = new Chart(ctx, {
 
             type: "pie",
@@ -242,6 +284,19 @@ async function loadDashboard() {
                     ]
 
                 }]
+            },
+
+            options: {
+
+                responsive:true,
+
+                plugins: {
+
+                    legend: {
+
+                        position:"top"
+                    }
+                }
             }
         });
 
@@ -265,33 +320,37 @@ setInterval(loadDashboard, 3000);
 
 </script>
 
-<!-- Auth -->
+<!-- AUTH -->
 <script src="auth-check.js"></script>
 
 <script>
+
 checkAdminAuth();
+
 </script>
 
-<!-- Username -->
+<!-- USERNAME -->
 <script>
 
-document.getElementById("username")
-    .innerText =
+document.getElementById(
+    "username"
+).innerText =
     localStorage.getItem("name");
 
 function logout() {
 
-    if(confirm("Are you sure you want to logout?")) {
+    if(confirm(
+        "Are you sure you want to logout?"
+    )) {
 
         localStorage.clear();
 
-        window.location.href = "index.html";
+        window.location.href =
+            "index.html";
     }
 }
 
 </script>
-<footer class="footer">
-    © 2026 Campus Complaint Management System
-</footer>
+
 </body>
 </html>

@@ -5,16 +5,7 @@ body {
 }
 
 /* Layout */
-.main{
 
-    display:flex;
-
-    align-items:flex-start;
-
-    gap:20px;
-
-    padding:20px;
-}
 
 .top-header{
 
@@ -86,50 +77,7 @@ body{
     font-family:'Poppins',sans-serif;
     background:#f4f6f9;
 }
-/* Sidebar */
-.sidebar{
 
-    width:260px;
-
-    background:#0f172a;
-
-    color:white;
-
-    padding:20px;
-}
-
-.sidebar h2 {
-    margin-bottom: 30px;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    padding: 12px;
-    margin: 5px 0;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.sidebar ul li:hover,
-.sidebar ul .active {
-    background: #3b82f6;
-}
-
-/* Content */
-.content{
-
-    flex:1;
-
-    padding:25px;
-
-    margin-left:0;
-
-    width:100%;
-}
 
 /* Topbar */
 .topbar {
@@ -140,14 +88,6 @@ body{
     font-weight: 600;
     text-align: center;
     margin-bottom: 20px;   /* ✅ adds gap */
-}
-
-/* Container */
-.container-box {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;   /* ✅ FIX spacing properly */
 }
 
 /* Colored Borders */
@@ -280,24 +220,6 @@ select:hover {
 .status-pending { color: #f59e0b; font-weight: bold; }
 .status-progress { color: #3b82f6; font-weight: bold; }
 .status-resolved { color: #22c55e; font-weight: bold; }
-.footer{
-
-    width:100%;
-
-    background:#1e293b;
-
-    color:white;
-
-    text-align:center;
-
-    padding:18px;
-
-    margin-top:40px;
-
-    font-size:16px;
-
-    font-weight:500;
-}
 
 /* DASHBOARD GRID */
 
@@ -313,43 +235,6 @@ select:hover {
     margin-top:30px;
 
     align-items:start;
-}
-
-/* CARDS */
-
-.card{
-
-    background:white;
-
-    padding:25px;
-
-    border-radius:16px;
-
-    box-shadow:
-        0 4px 15px rgba(0,0,0,0.08);
-
-    transition:0.3s;
-}
-
-.card:hover{
-
-    transform:translateY(-5px);
-}
-
-.card h2{
-
-    margin:0;
-
-    font-size:42px;
-}
-
-.card p{
-
-    margin-top:10px;
-
-    color:#64748b;
-
-    font-size:18px;
 }
 
 /* COLORS */
@@ -391,4 +276,233 @@ select:hover {
 .feedback-card button:hover{
 
     background:#2563eb;
+}
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#f4f6f9;
+}
+
+/* HEADER */
+
+.top-header{
+
+    width:100%;
+
+    background:linear-gradient(
+        135deg,
+        #1e3a8a,
+        #2563eb,
+        #3b82f6
+    );
+
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.2);
+}
+
+.top-header h1{
+
+    font-size:60px;
+
+    font-weight:bold;
+}
+
+.subtitle{
+
+    margin-top:10px;
+
+    font-size:18px;
+}
+
+/* MAIN LAYOUT */
+
+.main{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    width:100%;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+    width:240px;
+
+    min-width:240px;
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:25px;
+
+    min-height:100vh;
+}
+
+.sidebar h2{
+
+    margin-bottom:30px;
+
+    font-size:24px;
+}
+
+.sidebar ul{
+
+    list-style:none;
+}
+
+.sidebar ul li{
+
+    padding:15px;
+
+    margin-bottom:10px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.sidebar ul li:hover,
+.sidebar ul .active{
+
+    background:#3b82f6;
+}
+
+/* CONTENT */
+
+.content{
+
+    flex:1;
+
+    padding:20px 30px;
+
+    width:calc(100% - 240px);
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+/* TOPBAR */
+
+.topbar{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+
+    margin-bottom:30px;
+
+    font-size:28px;
+
+    font-weight:bold;
+}
+
+/* GRID */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap:25px;
+}
+
+/* CARD */
+
+.card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:16px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+
+    transition:0.3s;
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+}
+
+.card h2{
+
+    font-size:42px;
+
+    margin-bottom:10px;
+}
+
+.card p{
+
+    color:#64748b;
+
+    font-size:20px;
+}
+
+/* COLORS */
+
+.blue{
+
+    border-left:6px solid #3b82f6;
+}
+
+.orange{
+
+    border-left:6px solid #f59e0b;
+}
+
+.green{
+
+    border-left:6px solid #22c55e;
+}
+
+/* FOOTER */
+
+.footer{
+
+    width:100%;
+
+    background:#1e293b;
+
+    color:white;
+
+    text-align:center;
+
+    padding:18px;
+
+    font-size:16px;
+
+    font-weight:500;
 }
