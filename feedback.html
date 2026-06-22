@@ -119,9 +119,10 @@
 </footer>
 <script>
 
+```html
 <script>
 
-async function submitFeedback() {
+function submitFeedback() {
 
     alert("Function Started");
 
@@ -134,10 +135,41 @@ async function submitFeedback() {
     const feedback =
         document.getElementById("feedback").value;
 
-    alert(
-        "Rating: " + rating +
-        "\nComplaint ID: " + complaintId
-    );
+    fetch(
+        "https://online-complaint-management-system-tul3.onrender.com/api/feedback",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                rating,
+                complaintId,
+                feedback
+            })
+        }
+    )
+    .then(res => res.json())
+    .then(data => {
+
+        alert(
+            data.message ||
+            "Feedback submitted successfully"
+        );
+
+        window.location.href =
+            "dashboard.html";
+    })
+    .catch(err => {
+
+        console.error(err);
+
+        alert(
+            "Failed to submit feedback"
+        );
+    });
 }
 
 </script>
