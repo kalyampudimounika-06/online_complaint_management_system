@@ -1,4 +1,6 @@
-require("dotenv").config();
+const path = require("path");
+
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const express = require("express");
 
@@ -6,13 +8,36 @@ const mongoose = require("mongoose");
 
 const cors = require("cors");
 
-const path = require("path");
-
 const bcrypt = require("bcryptjs");
 
 const User = require("./models/User");
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
+const LOCAL_MONGO_URI = "mongodb://127.0.0.1:27017/online-complaint-management-system";
+const MONGO_OPTIONS = {
+    serverSelectionTimeoutMS: 3000
+};
+
+let serverStarted = false;
+
+function startServer() {
+
+    if (serverStarted) {
+        return;
+    }
+
+    serverStarted = true;
+
+    app.listen(PORT, () => {
+
+        console.log(
+            `Server running on port ${PORT}`
+        );
+
+    });
+}
 
 async function createAdmin() {
 
@@ -67,6 +92,14 @@ app.use(
     express.static(path.join(__dirname, "uploads"))
 );
 
+const feedbackRoutes =
+require("./routes/feedback");
+
+app.use(
+    "/api/feedback",
+    feedbackRoutes
+);
+
 
 // ================= ROUTES =================
 
@@ -83,26 +116,60 @@ app.use(
 
 // ================= MONGODB CONNECTION =================
 
-mongoose.connect(process.env.MONGO_URI)
+async function connectToMongo() {
 
-.then(() => {
+    const candidateUris = [MONGO_URI, LOCAL_MONGO_URI].filter(Boolean);
+    let lastError = null;
 
-    console.log("MongoDB Connected");
+    for (const uri of candidateUris) {
 
-    createAdmin();
+        try {
+            console.log(process.env.MONGO_URI);
+            await mongoose.connect(uri, MONGO_OPTIONS);
 
-    app.listen(process.env.PORT, () => {
+            console.log(`MongoDB Connected: ${uri}`);
 
-        console.log(
-            `Server running on port ${process.env.PORT}`
+            await createAdmin();
+
+            return true;
+
+        } catch (err) {
+
+            lastError = err;
+
+            console.warn(`Failed to connect to MongoDB: ${uri}`);
+
+            console.warn(err.message);
+
+        }
+
+    }
+
+    if (!candidateUris.length) {
+
+        console.warn(
+            "No MongoDB URI configured. Starting server without a database connection."
         );
 
-    });
+        return false;
 
-})
+    }
 
-.catch(err => {
+    console.warn(
+        "All MongoDB connection attempts failed. Starting server without a database connection."
+    );
 
-    console.log(err);
+    if (lastError) {
+        console.warn(lastError.message);
+    }
 
-});
+    return false;
+}
+
+(async () => {
+
+    await connectToMongo();
+
+    startServer();
+
+})();

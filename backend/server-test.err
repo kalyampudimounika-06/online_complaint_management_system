@@ -1,0 +1,6 @@
+Failed to connect to MongoDB: mongodb+srv://kalyampudimounipandu_db_user:Mounika2003@complaintdb.vo8kh3d.mongodb.net/ComplaintDB?retryWrites=true&w=majority
+querySrv ECONNREFUSED _mongodb._tcp.complaintdb.vo8kh3d.mongodb.net
+Failed to connect to MongoDB: mongodb://127.0.0.1:27017/online-complaint-management-system
+connect ECONNREFUSED 127.0.0.1:27017
+All MongoDB connection attempts failed. Starting server without a database connection.
+connect ECONNREFUSED 127.0.0.1:27017

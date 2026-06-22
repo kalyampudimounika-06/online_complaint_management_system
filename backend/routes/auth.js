@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 
 const router = require("express").Router();
+const mongoose = require("mongoose");
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -8,10 +9,28 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 
+function ensureDatabaseConnected(res) {
+
+    if (mongoose.connection.readyState !== 1) {
+        res.status(503).json({
+            message: "Database is currently unavailable. Please try again later."
+        });
+
+        return false;
+    }
+
+    return true;
+}
+
+
 // ================= REGISTER =================
 router.post("/register", async (req, res) => {
 
     try {
+
+        if (!ensureDatabaseConnected(res)) {
+            return;
+        }
 
         const { name, email, password, role } = req.body;
 
@@ -54,6 +73,10 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
 
     try {
+
+        if (!ensureDatabaseConnected(res)) {
+            return;
+        }
 
         const { email, password } = req.body;
 
@@ -115,6 +138,10 @@ router.post("/forgot-password", async (req, res) => {
 
     try {
 
+        if (!ensureDatabaseConnected(res)) {
+            return;
+        }
+
         const { email } = req.body;
 
         const user = await User.findOne({ email });
@@ -164,6 +191,10 @@ router.post("/forgot-password", async (req, res) => {
 router.post("/reset-password/:token", async (req, res) => {
 
     try {
+
+        if (!ensureDatabaseConnected(res)) {
+            return;
+        }
 
         const user = await User.findOne({
 

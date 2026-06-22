@@ -1,6 +1,21 @@
 const router = require("express").Router();
+const mongoose = require("mongoose");
 const Complaint = require("../models/ComplaintModel");
 const multer = require("multer");
+
+
+function ensureDatabaseConnected(res) {
+
+    if (mongoose.connection.readyState !== 1) {
+        res.status(503).json({
+            message: "Database is currently unavailable. Please try again later."
+        });
+
+        return false;
+    }
+
+    return true;
+}
 
 // Multer Storage
 const storage = multer.diskStorage({
@@ -17,6 +32,10 @@ const upload = multer({ storage });
 // CREATE COMPLAINT
 router.post("/", upload.single("file"), async (req, res) => {
     try {
+
+        if (!ensureDatabaseConnected(res)) {
+            return;
+        }
 
         console.log(req.body);
         console.log(req.file);
@@ -47,6 +66,11 @@ router.post("/", upload.single("file"), async (req, res) => {
 // GET ALL COMPLAINTS
 router.get("/", async (req, res) => {
     try {
+
+        if (!ensureDatabaseConnected(res)) {
+            return;
+        }
+
         const complaints = await Complaint.find();
         res.json(complaints);
     } catch (err) {
@@ -57,6 +81,10 @@ router.get("/", async (req, res) => {
 // UPDATE STATUS
 router.put("/:id", async (req, res) => {
     try {
+
+        if (!ensureDatabaseConnected(res)) {
+            return;
+        }
 
         const updated = await Complaint.findByIdAndUpdate(
             req.params.id,
