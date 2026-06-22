@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,19 +87,83 @@
 </div>
 <div class="feedback-container">
     <div class="feedback-box">
-        <h2>Submit Feedback</h2>
+        <h2>TEST FEEDBACK PAGE</h2>
 
-        <input type="number" min="1" max="5" placeholder="Rating (1-5)">
-        <input placeholder="Complaint ID">
+        <input
+            type="number"
+            id="rating"
+            min="1"
+            max="5"
+            placeholder="Rating (1-5)"
+        >
+        <input
+            id="complaintId"
+            placeholder="Complaint ID"
+        >
 
-        <textarea placeholder="Write your feedback..."></textarea>
+        <textarea
+            id="feedback"
+            placeholder="Write your feedback..."
+        ></textarea>
 
-        <button>Submit Feedback</button>
+        <button onclick="submitFeedback()">
+            Submit Feedback
+        </button>
     </div>
 
 </div>
 <footer class="footer">
     © 2026 Campus Complaint Management System
 </footer>
+<script>
+
+async function submitFeedback() {
+
+    const rating =
+        document.getElementById("rating").value;
+
+    const complaintId =
+        document.getElementById("complaintId").value;
+
+    const feedback =
+        document.getElementById("feedback").value;
+
+    try {
+
+        const res = await fetch(
+            "https://online-complaint-management-system-tul3.onrender.com/api/feedback",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    rating,
+                    complaintId,
+                    feedback
+                })
+            }
+        );
+
+        const data = await res.json();
+
+        alert(
+            data.message || "Feedback submitted successfully"
+        );
+
+        window.location.href =
+            "dashboard.html";
+
+    } catch (err) {
+
+        console.log(err);
+
+        alert("Failed to submit feedback");
+    }
+}
+
+</script>
 </body>
 </html>
