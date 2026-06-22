@@ -109,8 +109,8 @@
         ></textarea>
 
         <button onclick="submitFeedback()">
-            Submit Feedback
-        </button>
+        Submit Feedback
+    </button>
     </div>
 
 </div>
@@ -119,98 +119,25 @@
 </footer>
 <script>
 
+<script>
+
 async function submitFeedback() {
 
+    alert("Function Started");
+
     const rating =
-        document.getElementById("rating").value.trim();
+        document.getElementById("rating").value;
 
     const complaintId =
-        document.getElementById("complaintId").value.trim();
+        document.getElementById("complaintId").value;
 
     const feedback =
-        document.getElementById("feedback").value.trim();
+        document.getElementById("feedback").value;
 
-    // Validation
-    if (!rating || !complaintId || !feedback) {
-
-        alert("Please fill all fields");
-
-        return;
-    }
-
-    if (rating < 1 || rating > 5) {
-
-        alert("Rating must be between 1 and 5");
-
-        return;
-    }
-
-    const button =
-        document.querySelector("button");
-
-    button.disabled = true;
-
-    button.innerText = "Submitting...";
-
-    try {
-
-        const res = await fetch(
-            "https://online-complaint-management-system-tul3.onrender.com/api/feedback",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    rating,
-                    complaintId,
-                    feedback
-                })
-            }
-        );
-
-        const data = await res.json();
-
-        if (!res.ok) {
-
-            throw new Error(
-                data.message ||
-                data.error ||
-                "Failed to submit feedback"
-            );
-        }
-
-        alert(
-            data.message ||
-            "Feedback submitted successfully"
-        );
-
-        document.getElementById("rating").value = "";
-
-        document.getElementById("complaintId").value = "";
-
-        document.getElementById("feedback").value = "";
-
-        window.location.href =
-            "dashboard.html";
-
-    } catch (err) {
-
-        console.error(err);
-
-        alert(
-            err.message ||
-            "Failed to submit feedback"
-        );
-
-    } finally {
-
-        button.disabled = false;
-
-        button.innerText = "Submit Feedback";
-    }
+    alert(
+        "Rating: " + rating +
+        "\nComplaint ID: " + complaintId
+    );
 }
 
 </script>

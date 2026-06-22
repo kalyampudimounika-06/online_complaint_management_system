@@ -36,4 +36,22 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/", async (req, res) => {
+
+    try {
+
+        const feedbacks =
+            await Feedback.find()
+            .sort({ createdAt: -1 });
+
+        res.json(feedbacks);
+
+    } catch (err) {
+
+        res.status(500).json({
+            error: err.message
+        });
+    }
+});
+
 module.exports = router;
